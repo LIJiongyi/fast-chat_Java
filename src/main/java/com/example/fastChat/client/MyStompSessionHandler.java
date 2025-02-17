@@ -18,7 +18,7 @@ public class MyStompSessionHandler extends StompSessionHandlerAdapter {
     @Override
     public void afterConnected(StompSession session, StompHeaders connectedHeaders) { // used when the user is connected to the websocket
         System.out.println("The Client connected successfully");
-        session.send("/app/connect", username);
+        session.send("/app/connect", username); // 发送用户名到connectUser方法
         session.subscribe("/topic/messages", new StompFrameHandler() {
             @Override
             public Type getPayloadType(StompHeaders headers) { // imform client about the expected type of payload

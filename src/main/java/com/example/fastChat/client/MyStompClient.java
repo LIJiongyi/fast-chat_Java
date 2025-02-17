@@ -42,4 +42,9 @@ public class MyStompClient { // Stomp的意思是简单文本定向消息,是一
             e.printStackTrace();
         }
     }
+
+    public void disconnectUser(String username) {
+        session.send("/app/disconnect", username);
+        System.out.println("Disconnect user: " + username);
+    }
 }
