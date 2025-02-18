@@ -18,7 +18,7 @@ public class MyStompClient { // Stomp的意思是简单文本定向消息,是一
     private StompSession session;
     private String username; // store the username of the client
 
-    public MyStompClient(String username) throws ExecutionException, InterruptedException {
+    public MyStompClient(MessageListener messageListener, String username) throws ExecutionException, InterruptedException {
         this.username = username;
 
         List<Transport> transports = new ArrayList<>();
@@ -28,7 +28,7 @@ public class MyStompClient { // Stomp的意思是简单文本定向消息,是一
         WebSocketStompClient stompClient = new WebSocketStompClient(sockJsClient);
         stompClient.setMessageConverter(new MappingJackson2MessageConverter());
 
-        StompSessionHandler sessionHandler = new MyStompSessionHandler(username);
+        StompSessionHandler sessionHandler = new MyStompSessionHandler(messageListener, username);
         String url = "ws://localhost:8080/ws";  // ws stands for Websocket
 
         session = stompClient.connectAsync(url, sessionHandler).get(); //异步连接到websocket服务器. session是StompSession实例
